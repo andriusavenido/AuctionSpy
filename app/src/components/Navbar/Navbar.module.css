@@ -1,0 +1,54 @@
+.navbar {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  gap: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logoImage {
+  height: 60px; /* Adjust based on your design */
+  width: auto;
+  margin-right: 0.5rem; /* Space between image and text */
+  border-radius: 20px;
+}
+
+.logoText {
+  color: var(--goldColor); /* Adjust color based on your design */
+  font-size: 1.2rem; /* Adjust size based on your design */
+  margin: 0; /* Remove default margin */
+  text-decoration: none;
+  align-items: center;
+  text-align: center;
+  font-size: 35px;
+
+  text-shadow:2px 2px #595858;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.links li {
+  display: inline;
+}
+
+.links a {
+  color: var(--goldColor);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
+}
+
+.links a:hover {
+    color: var(--analogColor);
+}

@@ -13,13 +13,13 @@ const Navbar = () => {
       </div>
       <ul className={styles.links}>
         <li>
-          <Link to="">How to Play</Link>
+          <Link to="/guide">How to Play</Link>
         </li>
         <li>
-          <Link to="">Credits</Link>
+          <Link to="/credits">Credits</Link>
         </li>
         <li>
-          <Link to="">Feedback</Link>
+          <Link to="/feedback">Feedback</Link>
         </li>
       </ul>
     </div>

@@ -7,7 +7,15 @@ const roomSchema = new Schema({
         type: String,
         required:true,
     },
-    participants:[String]
+    participants:[String],
+    status:{
+        type: String,
+        required:true,
+    },
+    privacy:{
+        type: String,
+        required:true
+    }
 }, { collection: 'rooms'});
 
-module.exports = mongoose.model('room', messageSchema)
+module.exports = mongoose.model('room', roomSchema)

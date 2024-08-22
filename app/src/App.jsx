@@ -4,12 +4,16 @@ import Navbar from './components/Navbar/Navbar';
 import Guide from './pages/Guide/Guide';
 import Credits from './pages/Credits/Credits';
 import Feedback from './pages/Feedback/Feedback'
+
+import TestSocket from './pages/TestSocket';
+import { SocketProvider } from './context/SocketContext.jsx'
+
 function App() {
   return (
     <Router>
      <Navbar></Navbar>
       <Routes>
-        <Route path="/" element ={<Home/>}></Route>
+      <Route path="/" element ={<SocketProvider><TestSocket></TestSocket></SocketProvider>}></Route>
         <Route path="/guide" element ={<Guide/>}></Route>
         <Route path="/credits" element ={<Credits/>}></Route>
         <Route path="/feedback" element ={<Feedback/>}></Route>

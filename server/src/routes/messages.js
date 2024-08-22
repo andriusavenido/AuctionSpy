@@ -13,9 +13,9 @@ router.post("/", message_create);
 
 router.delete("/:id", message_delete);
 
-router.get("/:room_id",message_getByRoom);
+router.get("/roomId/:room_id",message_getByRoom);
 
-router.get("/:session_id", message_getByUser);
+router.get("/sessionId/:session_id", message_getByUser);
 
 router.get("/", message_getAll);
 

@@ -13,7 +13,7 @@ const message_getByRoom = async (req, res) =>{
 
     const messages = await Message.find({room_id: room_id}).sort({createdAt: -1});
 
-    if (!messages){
+    if (messages.length === 0){
         return res.status(404).json({error:'No such message'});
     }
 
@@ -26,7 +26,7 @@ const message_getByUser = async (req, res) =>{
 
     const messages = await Message.find({session_id:session_id}).sort({createdAt: -1});
 
-    if (!messages){
+    if (messages.length === 0){
         return res.status(404).json({error:'No such message'});
     }
 

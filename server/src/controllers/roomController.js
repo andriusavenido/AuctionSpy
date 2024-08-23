@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 //CRUD API
 
 const room_create = async (req,res) =>{
-    const {name, participants, status, privacy} =req.body;
+    const {name, adminId, participants, status, privacy} =req.body;
 
     try{
-        const room = await Room.create({name, participants, status, privacy});
+        const room = await Room.create({name, adminId, participants, status, privacy});
 
         res.status(200).json(room);
     } catch (error){

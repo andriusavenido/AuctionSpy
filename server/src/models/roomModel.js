@@ -7,6 +7,10 @@ const roomSchema = new Schema({
         type: String,
         required:true,
     },
+    adminId:{
+        type: Number,
+        required: true
+    },
     participants:[String],
     status:{
         type: String,
@@ -16,6 +20,6 @@ const roomSchema = new Schema({
         type: String,
         required:true
     }
-}, { collection: 'rooms'});
+}, { timestamp:true,collection: 'rooms'});
 
 module.exports = mongoose.model('room', roomSchema)

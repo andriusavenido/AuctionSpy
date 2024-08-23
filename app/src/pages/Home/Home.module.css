@@ -1,0 +1,56 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    height: 70vh;
+}
+
+h2{
+    font-size: 2.5em;
+    font-weight: 200;
+    color: var(--goldColor);
+    /* text-shadow: 1px 1px var(--analogColor); */
+}
+
+label{
+    padding: 1em;
+    border-bottom: 0.1em solid ;
+    width: 20%;
+    text-align: center;
+}
+.input{
+    width: 20%;
+    height: 2rem;
+    margin: 1em;
+    font-family: "Lora", serif;
+    font-size: larger;
+    text-align: center;
+    color: var(--analogColor);
+    outline: none;
+}
+
+button{
+    background-color: transparent;
+    border: none;
+    color: var(--goldColor);
+    font-family: "Lora", serif;
+    font-size: large;
+}
+
+button:hover{
+    color: var(--analogColor);
+    cursor: pointer;
+}
+
+.roomList{
+    border-top: solid 1px;
+    width: 80vh;
+    overflow: auto;
+    height: 50vh;
+    border: solid 1px black;
+}
+
+.highlighted{
+    color: var(--analogColor);
+}

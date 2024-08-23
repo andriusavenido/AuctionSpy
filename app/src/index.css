@@ -15,6 +15,14 @@
   --goldColor: #ffcc5a;
   --backgroundColor:#222831;
   --analogColor:#ff7a5a;
-
+  --redColor:rgb(220, 112, 112);
+  --greenColor: rgb(153, 193, 93);
   background-color: var(--backgroundColor);
+}
+
+hr{
+  width: 85vh;
+  background-color: var(--goldColor);
+  height: 1px;
+  border: none;
 }

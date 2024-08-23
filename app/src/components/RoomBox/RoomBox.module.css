@@ -1,0 +1,33 @@
+.roombox{
+    display: flex;
+    gap: 2rem;
+    justify-content:flex-start;
+    align-items: center;
+    margin: 1rem;
+    padding: 1em;
+    height: 10%;
+    background-color: #2b3139;
+}
+
+.details{
+    display: flex;
+    width: auto;
+    gap: 2rem;
+    align-items: center;
+}
+
+.roomName{
+    color: var(--goldColor);
+}
+
+button{
+    font-size: medium;
+}
+
+.open{
+    color: var(--greenColor);
+}
+
+.closed{
+    color: var(--redColor);
+}

@@ -6,9 +6,7 @@ const TestSocket = () => {
     useEffect(() =>{
         if (!socket) return;
 
-        socket.on('message', (msg) =>{
-            console.log(msg);
-        })
+        
     },[socket]);
 
     return ( <div className="testSocket">

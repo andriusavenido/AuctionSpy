@@ -16,7 +16,7 @@ const Navbar = () => {
           <Link to="/guide">How to Play</Link>
         </li>
         <li>
-          <Link to="/credits">Credits</Link>
+          <Link to="/credits">About</Link>
         </li>
         <li>
           <Link to="/feedback">Feedback</Link>

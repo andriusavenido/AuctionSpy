@@ -6,7 +6,9 @@ const useMessageHandler = () => {
     const [messages, setMessages] = useState([]);
 
     useEffect(()=>{
-        
+        socket.on('message', (msg) =>{
+            console.log(msg);
+        })
     },[])
 
     const sendMessage = (text) =>{

@@ -54,3 +54,8 @@ button:hover{
 .highlighted{
     color: var(--analogColor);
 }
+
+.pageWrapper{
+    display: flex;
+    justify-content: center;
+}

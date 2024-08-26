@@ -8,7 +8,7 @@ const roomSchema = new Schema({
         required:true,
     },
     adminId:{
-        type: Number,
+        type: String,
         required: true
     },
     participants:[String],

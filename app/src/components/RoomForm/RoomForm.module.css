@@ -1,7 +1,31 @@
-.wrapper{
-
+.wrapper {
+  display: flex;
+  height: 50vh;
+  flex-direction: column;
+  margin-top: 5.9rem;
+  border-top: solid white 1px;
 }
 
-form{
-    
+label {
+  border: none;
+  width: 100%;
+}
+
+.input{
+    font-family: "Lora", serif;
+    width: 25vh;
+    padding: 0.2em;
+}
+.roomCode {
+ display: flex;
+}
+
+.button{
+    margin: 1em;
+    border: 1px solid var(--goldColor);
+    border-radius: 1em;
+}
+
+.button:hover{
+    border-color: var(--analogColor);
 }

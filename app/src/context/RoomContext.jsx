@@ -18,6 +18,7 @@ const RoomContext = createContext();
 
 export const RoomContextProvider = ({children}) =>{
     const [name, setName] = useState(null);
+    const [activeRoom, setActiveRoom] = useState(null);
     
     const [state, dispatch] = useReducer(roomReducer,{
         rooms: []
@@ -29,7 +30,6 @@ export const RoomContextProvider = ({children}) =>{
                 const response = await fetch('/api/room');
                 const data = await response.json();
                 dispatch({type: 'SET_ROOMS', payload:data});
-                console.log(data);
             }
             catch (err){
                 dispatch({type: 'SET_ROOMS', payload:[]});
@@ -43,8 +43,48 @@ export const RoomContextProvider = ({children}) =>{
         dispatch({type: 'ADD_ROOM', payload: newRoom});
     }
 
+    const useCreateRoom = () =>{
+        const [loading, setLoading] = useState(false);
+        const [error, setError] = useState(null);
+
+        const createRoom = async (data) =>{
+            setLoading(true);
+            setError(null);
+            
+            try {
+                const response = await fetch('/api/room',{
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                console.log(response);
+                if (response.ok){
+                    const newRoom = await response.json();
+                    addRoom(newRoom);
+                    setActiveRoom(newRoom);
+                    
+                } else{
+                    const errorData = await response.json();
+                    setError (errorData.messsage || 'Failed to create room');
+                }
+            } catch(err){
+                setError (err.message || 'Something went wrong');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        return {
+            createRoom,
+            loading,
+            error
+        };
+    }
+
     return (
-        <RoomContext.Provider value = {{name, setName, addRoom, state}}>
+        <RoomContext.Provider value = {{name, setName, addRoom, state, useCreateRoom}}>
             {children}
         </RoomContext.Provider>
     );
@@ -59,3 +99,4 @@ export const useRoomContext = () =>{
 
     return context;
 }
+

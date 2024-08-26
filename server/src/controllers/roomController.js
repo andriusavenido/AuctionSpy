@@ -11,6 +11,8 @@ const room_create = async (req,res) =>{
 
         res.status(200).json(room);
     } catch (error){
+        console.log(req.body);
+        console.log(error);
         res.status(400).json({errror:error.message});
     }
 }

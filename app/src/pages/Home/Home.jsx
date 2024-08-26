@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.css';
 import { useRoomContext } from '../../context/RoomContext';
 import RoomBox from '../../components/RoomBox/RoomBox';
+import RoomForm from '../../components/RoomForm/RoomForm';
 
 const Home = () => {
     const {name, setName} = useRoomContext();
@@ -22,7 +23,8 @@ const Home = () => {
         setName(e.target.value);
     }
 
-    return ( 
+    return ( <div className={styles.pageWrapper}>
+
     <div className={styles.wrapper}>
         {!showRooms && <>
             <h2>Greetings anonynmous bidder...</h2>
@@ -32,7 +34,6 @@ const Home = () => {
         </>}
         {showRooms &&<>
             <h3>Welcome <span className={styles.highlighted}>{name}</span>, choose an auction room:</h3>
-            <h3>Rooms</h3>
             <div className={styles.roomList}>
                 {state.rooms.map(singleRoom =>(
                     <RoomBox
@@ -43,8 +44,10 @@ const Home = () => {
 
             </div>
         </>}
-      
-    </div> );
+    </div> 
+   {showRooms && <RoomForm></RoomForm>}
+    </div>
+    );
 }
 
 export default Home;

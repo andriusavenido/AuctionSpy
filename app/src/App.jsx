@@ -14,13 +14,15 @@ function App() {
     <Router>
      <Navbar></Navbar>
      <RoomContextProvider>
+      <SocketProvider>
       <Routes>
       <Route path="/" element ={<Home/>}></Route>
         <Route path="/guide" element ={<Guide/>}></Route>
         <Route path="/credits" element ={<Credits/>}></Route>
         <Route path="/feedback" element ={<Feedback/>}></Route>
-        <Route path="/room" element ={<SocketProvider><TestSocket></TestSocket></SocketProvider>}></Route>
+        <Route path="/room" element ={<TestSocket></TestSocket>}></Route>
       </Routes>
+      </SocketProvider>
       </RoomContextProvider>
       <hr />
     </Router>

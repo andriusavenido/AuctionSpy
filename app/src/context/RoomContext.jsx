@@ -31,7 +31,6 @@ export const RoomContextProvider = ({children}) =>{
             try{
                 const response = await fetch('/api/room');
                 const data = await response.json();
-                console.log(data);
                 dispatch({type: 'SET_ROOMS', payload:data});
             }
             catch (err){
@@ -66,7 +65,6 @@ export const RoomContextProvider = ({children}) =>{
                     },
                     body: JSON.stringify(data)
                 });
-                console.log(response);
                 if (response.ok){
                     const newRoom = await response.json();
                     addRoom(newRoom);
@@ -132,7 +130,7 @@ export const RoomContextProvider = ({children}) =>{
     const useUpdateRoom = () =>{
         
         const updateRoom = async (id) =>{
-            
+
         }
     }
 

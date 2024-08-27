@@ -22,7 +22,6 @@ const Room = () => {
     socket.emit('joinRoom', activeRoom._id, name);
     //join room on socket, validate, update rooms etc
     socket.on('roomUpdate', (newRoom) =>{
-        console.log('updated Room');
         setActiveRoom(newRoom);
     });
   }, []);

@@ -4,8 +4,9 @@ import { useRoomContext } from "../../context/RoomContext";
 import { useSocketContext } from "../../context/SocketContext";
 
 const RoomForm = () => {
-  const { name, useCreateRoom } = useRoomContext();
+  const { name, useCreateRoom, useJoinRoom } = useRoomContext();
   const { createRoom, loading, error } = useCreateRoom();
+  const { joinRoom, loading: joinLoading, error: joinError } = useJoinRoom();
   const { session_id } = useSocketContext();
   const [data, setData] = useState({
     name: "",
@@ -29,6 +30,8 @@ const RoomForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await createRoom(data);
+
+    //migrate page
   };
 
   const handleRoomCode = (e) => {
@@ -37,6 +40,10 @@ const RoomForm = () => {
 
   const handleJoin = async (e) => {
     e.preventDefault();
+
+      await joinRoom(roomCode);
+
+  
   };
 
   return (
@@ -57,13 +64,21 @@ const RoomForm = () => {
         </div>
         <div>
           <label htmlFor="privacy">Privacy:</label>
-          <select >
+          <select
+            name="privacy"
+            id="privacy"
+            value={data.privacy}
+            onChange={handleChange}
+            className={styles.input}
+          >
             <option value="public">Public</option>
             <option value="private">Private</option>
           </select>
         </div>
 
-        <button className={styles.button} type="submit">Create</button>
+        <button className={styles.button} type="submit">
+          Create
+        </button>
       </form>
 
       <h3>Join a room</h3>
@@ -79,10 +94,18 @@ const RoomForm = () => {
             required
             className={styles.input}
           />
-          <button type="submit" className={styles.button}>Submit</button>
+          <button type="submit" className={styles.button}>
+            Submit
+          </button>
         </form>
       </div>
 
+      <div>
+        {joinError && <p className={styles.highlight}>Error: {joinError}</p>}
+        {joinLoading && <p>loading...</p>}
+        {error && <p className={styles.highlight}>Error: {error}</p>}
+        {loading && <p>loading...</p>}
+      </div>
     </div>
   );
 };

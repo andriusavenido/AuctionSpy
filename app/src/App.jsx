@@ -5,7 +5,7 @@ import Guide from './pages/Guide/Guide';
 import Credits from './pages/Credits/Credits';
 import Feedback from './pages/Feedback/Feedback'
 
-import TestSocket from './pages/TestSocket';
+import Room from './pages/Room/Room.jsx'
 import { SocketProvider } from './context/SocketContext.jsx'
 import { RoomContextProvider } from './context/RoomContext.jsx';
 
@@ -14,15 +14,16 @@ function App() {
     <Router>
      <Navbar></Navbar>
      <RoomContextProvider>
-      <SocketProvider>
+     
       <Routes>
-      <Route path="/" element ={<Home/>}></Route>
         <Route path="/guide" element ={<Guide/>}></Route>
         <Route path="/credits" element ={<Credits/>}></Route>
-        <Route path="/feedback" element ={<Feedback/>}></Route>
-        <Route path="/room" element ={<TestSocket></TestSocket>}></Route>
+        <Route path="/feedback" element ={<Feedback/>}></Route> 
+        <Route path="/" element ={<SocketProvider><Home/></SocketProvider>}></Route>
+        <Route path="/room" element ={ <SocketProvider><Room/></SocketProvider>}></Route>
+        
       </Routes>
-      </SocketProvider>
+      
       </RoomContextProvider>
       <hr />
     </Router>

@@ -29,6 +29,7 @@ export const RoomContextProvider = ({children}) =>{
             try{
                 const response = await fetch('/api/room');
                 const data = await response.json();
+                console.log(data);
                 dispatch({type: 'SET_ROOMS', payload:data});
             }
             catch (err){
@@ -40,7 +41,10 @@ export const RoomContextProvider = ({children}) =>{
     },[]);
 
     const addRoom = (newRoom) =>{
-        dispatch({type: 'ADD_ROOM', payload: newRoom});
+        if (newRoom.privacy !== 'private'){
+             dispatch({type: 'ADD_ROOM', payload: newRoom});
+        }
+       
     }
 
     const useCreateRoom = () =>{
@@ -83,8 +87,42 @@ export const RoomContextProvider = ({children}) =>{
         };
     }
 
+    const useJoinRoom = () =>{
+        const [loading, setLoading] = useState(false);
+        const [error, setError] = useState(null);
+
+        const joinRoom = async (id) =>{
+            setLoading(true);
+            setError(null);
+            
+            try {
+                const response = await fetch('/api/room/' + id);
+               
+                if (response.ok){
+                    const newRoom = await response.json();
+                    setActiveRoom(newRoom);
+                    console.log('joining room',response);
+                } else{
+                    const errorData = await response.json();
+                    setError(errorData.error);
+                }
+            } catch(err){
+                setError (err.message || 'Something went wrong');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        return {
+           joinRoom,
+            loading,
+            error
+        };
+
+    }
+
     return (
-        <RoomContext.Provider value = {{name, setName, addRoom, state, useCreateRoom}}>
+        <RoomContext.Provider value = {{name, setName, activeRoom, addRoom, state, useCreateRoom, useJoinRoom}}>
             {children}
         </RoomContext.Provider>
     );

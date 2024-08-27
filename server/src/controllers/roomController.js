@@ -56,7 +56,7 @@ const room_getById = async(req, res) =>{
 }
 
 const room_getAllPublic = async (req,res) =>{
-    const rooms = await Room.find({ privacy: 'public'}).sort({createdAt: -1}); //sort rooms by latest
+    const rooms = await Room.find({ privacy: 'public'}).sort({createdAt: 1}); //sort rooms by latest
 
     res.status(200).json(rooms);
 }

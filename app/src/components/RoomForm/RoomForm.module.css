@@ -29,3 +29,7 @@ label {
 .button:hover{
     border-color: var(--analogColor);
 }
+
+.highlight{
+  color: var(--analogColor);
+}

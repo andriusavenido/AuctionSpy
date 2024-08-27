@@ -20,6 +20,6 @@ const roomSchema = new Schema({
         type: String,
         required:true
     }
-}, { timestamp:true,collection: 'rooms'});
+}, { timestamps:true,collection: 'rooms'});
 
 module.exports = mongoose.model('room', roomSchema)

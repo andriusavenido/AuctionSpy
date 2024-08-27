@@ -16,6 +16,10 @@ export const SocketProvider = ({children}) =>{
             setSessionId(socketIo.id);
         });
 
+        socketIo.on('error', (error) =>{
+            console.log('Socket error: ', error);
+        })
+
         return () =>{
             socketIo.disconnect();
         };

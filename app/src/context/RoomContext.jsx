@@ -1,6 +1,7 @@
 /* Context for accessing rooms */
 
 import { useContext, useState, createContext, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 
 const roomReducer =(state, action) =>{
     switch(action.type) {
@@ -8,6 +9,7 @@ const roomReducer =(state, action) =>{
             return {...state, rooms: action.payload}
         case 'ADD_ROOM':
             return {...state, rooms: [...state.rooms, action.payload]}
+
         default:
             return state
     }
@@ -50,6 +52,7 @@ export const RoomContextProvider = ({children}) =>{
     const useCreateRoom = () =>{
         const [loading, setLoading] = useState(false);
         const [error, setError] = useState(null);
+        const navi = useNavigate();
 
         const createRoom = async (data) =>{
             setLoading(true);
@@ -68,6 +71,7 @@ export const RoomContextProvider = ({children}) =>{
                     const newRoom = await response.json();
                     addRoom(newRoom);
                     setActiveRoom(newRoom);
+                    navi("/room");
                     
                 } else{
                     const errorData = await response.json();
@@ -90,6 +94,7 @@ export const RoomContextProvider = ({children}) =>{
     const useJoinRoom = () =>{
         const [loading, setLoading] = useState(false);
         const [error, setError] = useState(null);
+        const navi = useNavigate();
 
         const joinRoom = async (id) =>{
             setLoading(true);
@@ -101,7 +106,10 @@ export const RoomContextProvider = ({children}) =>{
                 if (response.ok){
                     const newRoom = await response.json();
                     setActiveRoom(newRoom);
-                    console.log('joining room',response);
+                    //join room on socket
+
+                    //redirection
+                    navi("/room");
                 } else{
                     const errorData = await response.json();
                     setError(errorData.error);
@@ -121,8 +129,15 @@ export const RoomContextProvider = ({children}) =>{
 
     }
 
+    const useUpdateRoom = () =>{
+        
+        const updateRoom = async (id) =>{
+            
+        }
+    }
+
     return (
-        <RoomContext.Provider value = {{name, setName, activeRoom, addRoom, state, useCreateRoom, useJoinRoom}}>
+        <RoomContext.Provider value = {{name, setName, activeRoom, setActiveRoom, addRoom, state, useCreateRoom, useJoinRoom , useUpdateRoom}}>
             {children}
         </RoomContext.Provider>
     );

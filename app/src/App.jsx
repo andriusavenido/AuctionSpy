@@ -7,24 +7,26 @@ import Feedback from './pages/Feedback/Feedback'
 
 import Room from './pages/Room/Room.jsx'
 import { SocketProvider } from './context/SocketContext.jsx'
-import { RoomContextProvider } from './context/RoomContext.jsx';
+import { useRoomContext } from './context/RoomContext.jsx';
+
 
 function App() {
+  const {name, activeRoom} = useRoomContext(); //protect room route
+  
+  
   return (
     <Router>
      <Navbar></Navbar>
-     <RoomContextProvider>
      
       <Routes>
         <Route path="/guide" element ={<Guide/>}></Route>
         <Route path="/credits" element ={<Credits/>}></Route>
         <Route path="/feedback" element ={<Feedback/>}></Route> 
         <Route path="/" element ={<SocketProvider><Home/></SocketProvider>}></Route>
-        <Route path="/room" element ={ <SocketProvider><Room/></SocketProvider>}></Route>
+        <Route path="/room" element ={ <SocketProvider><Room/></SocketProvider> }></Route>
         
       </Routes>
-      
-      </RoomContextProvider>
+    
       <hr />
     </Router>
   )

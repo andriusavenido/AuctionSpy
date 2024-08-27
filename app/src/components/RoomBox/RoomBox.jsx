@@ -1,7 +1,12 @@
 import styles from "./RoomBox.module.css";
 
 const RoomBox = ({ room }) => {
-  const { name, participants, status, createdAt } = room;
+  const { _id, name, participants, status, createdAt } = room;
+
+  const handleSubmit = async () =>{
+    e.preventDefault();
+    //join room
+  }
   return (
     <div className={styles.roombox}>
       <h3 className={styles.roomName}>{name}</h3>
@@ -11,7 +16,7 @@ const RoomBox = ({ room }) => {
           Status: {status}
         </p>
         <p>{createdAt}</p>
-        <button disabled={status==="open"? false:true}>{status==="open"? 'Join':''}</button>
+        <button disabled={status==="open"? false:true} onClick={handleSubmit}>{status==="open"? 'Join':''}</button>
       </div>
     </div>
   );

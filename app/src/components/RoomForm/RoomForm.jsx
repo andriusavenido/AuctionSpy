@@ -2,16 +2,17 @@ import { useState } from "react";
 import styles from "./RoomForm.module.css";
 import { useRoomContext } from "../../context/RoomContext";
 import { useSocketContext } from "../../context/SocketContext";
+import { useNavigate} from "react-router-dom";
 
 const RoomForm = () => {
-  const { name, useCreateRoom, useJoinRoom } = useRoomContext();
+  const {  useCreateRoom, useJoinRoom } = useRoomContext();
   const { createRoom, loading, error } = useCreateRoom();
   const { joinRoom, loading: joinLoading, error: joinError } = useJoinRoom();
   const { session_id } = useSocketContext();
   const [data, setData] = useState({
     name: "",
     adminId: session_id,
-    participants: [name],
+    participants: [],
     status: "open",
     privacy: "public",
   });
@@ -30,8 +31,6 @@ const RoomForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await createRoom(data);
-
-    //migrate page
   };
 
   const handleRoomCode = (e) => {
@@ -41,8 +40,7 @@ const RoomForm = () => {
   const handleJoin = async (e) => {
     e.preventDefault();
 
-      await joinRoom(roomCode);
-
+    await joinRoom(roomCode);
   
   };
 

@@ -1,3 +1,72 @@
 .wrapper{
+    margin-top: 2em;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar{
+    border: 1px solid white;
+    width: 40vh;
+    flex: 0 0 auto;
+}
+
+.details{
+    padding: 1em;
+
+}
+.details ul{
+    list-style-type: none;
+    padding: 0;
+}
+.details li{
+    margin: 1em 0;
+}
+
+.controls{
+    border: 1px solid rgb(137, 34, 34);
+}
+
+.chat{
+    border: 1px solid white;
+    height: 80vh;
+    width: 65vh;
+    flex: 0 0 auto;
     
 }
+
+.chatMessages{
+    height: 70vh;
+    flex: 0 0 auto;
+    background-color: var(--shadowcolor);
+    border: 1px solid rgb(166, 133, 133);
+    overflow: auto;
+}
+
+.message{
+    
+}
+
+
+.chatInput{
+    text-align: center;
+    margin-top:2em;
+}
+
+.chatInput input{
+    width: 85%;
+    font-family: "Lora", serif;
+    padding: 0.3em;
+}
+.userMessage{
+
+}
+
+.otherMessage{
+
+}
+
+.gameControls{
+    border: 1px solid white;
+
+}
+

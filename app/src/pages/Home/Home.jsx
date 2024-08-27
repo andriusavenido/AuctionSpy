@@ -5,7 +5,14 @@ import RoomBox from '../../components/RoomBox/RoomBox';
 import RoomForm from '../../components/RoomForm/RoomForm';
 
 const Home = () => {
-    const {name, setName} = useRoomContext();
+    const {name, setName, setActiveRoom} = useRoomContext();
+
+    //reset state on mount
+    useEffect(() =>{
+        setActiveRoom(null);
+        setName(null);
+    },[])
+
     const [showRooms, setShowRooms] = useState(false);
     const inputRef = useRef(null);
 

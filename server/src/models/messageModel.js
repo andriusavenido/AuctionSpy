@@ -8,7 +8,7 @@ const messageSchema = new Schema({
         required:true,
     },
     room_id:{
-        type: Number,
+        type: String,
         required:true
     },
     text:{

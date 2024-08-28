@@ -7,8 +7,9 @@ import useMessageHandler from "../../hooks/useMessageHandler";
 const Room = () => {
   const { socket, session_id } = useSocketContext();
   const { name, activeRoom, setActiveRoom } = useRoomContext();
-  const { messages, sendMessage } = useMessageHandler();
-
+  const { messages, sendMessage } = useMessageHandler(socket, activeRoom._id, name);
+  const [inputValue, setInputValue] = useState('');
+ 
   const [room, setRoom] = useState({
     _id: "",
     name: "",
@@ -19,6 +20,7 @@ const Room = () => {
   });
 
   useEffect(() => {
+    console.log(activeRoom);
     socket.emit('joinRoom', activeRoom._id, name);
     //join room on socket, validate, update rooms etc
     socket.on('roomUpdate', (newRoom) =>{
@@ -31,6 +33,21 @@ const Room = () => {
       setRoom(activeRoom);
     }
   }, [activeRoom]);
+
+  useEffect(() =>{
+    console.log(messages);
+  },[messages])
+
+  const handleInputChange = (e) =>{
+    setInputValue(e.target.value);
+  }
+
+  const handleSendMessage = () =>{
+    if (inputValue){
+      sendMessage(inputValue);
+      setInputValue('');
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -50,10 +67,17 @@ const Room = () => {
         <div className={styles.gameControls}></div>
       </div>
       <div className={styles.chat}>
-        <div className={styles.chatMessages}></div>
+        <div className={styles.chatMessages}>
+          <ul>
+            {messages.map( message => (
+              <li className={styles.message} key={message._id}> {message.username} : {message.text} </li>
+            ))}
+          </ul>
+        </div>
         <div className={styles.chatInput}>
-            <input type="text" placeholder="Send a message..."/>
-            <button>Send</button>
+          <input type="text" value = {inputValue} onChange={handleInputChange} placeholder="Send a message..."/>
+          <button  onClick={handleSendMessage}>Send</button>
+            
         </div>
       </div>
     </div>

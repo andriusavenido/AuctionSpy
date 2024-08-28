@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react";
-import { useSocketContext } from "../context/SocketContext";
-import { useRoomContext } from "../context/RoomContext";
 
-const useMessageHandler = () => {
-    const {socket, session_id} = useSocketContext();
-    const {activeRoom} = useRoomContext();
+const useMessageHandler = (socket, room_id, username) => {
     const [messages, setMessages] = useState([]);
 
     useEffect(()=>{
-        socket.on('message', (msg) =>{
-            console.log(msg);
+        socket.on('roomMessage', (msg) =>{
+            setMessages( (prev) =>[
+                ...prev,
+                msg
+            ]);
         })
     },[])
 
     const sendMessage = (text) =>{
         const message = {
+            username: username,
+            room_id: room_id,
+            text: text,
+            session_id: socket.id
         };
+
+        console.log('emitting')
+
+        socket.emit('roomMessage', message);
     }
     return ( {messages, sendMessage} );
 }

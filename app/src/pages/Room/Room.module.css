@@ -42,8 +42,20 @@
     overflow: auto;
 }
 
+.chatMessages ul{
+    list-style-type: none;
+}
+
 .message{
     
+}
+
+.user{
+
+}
+
+.other{
+
 }
 
 
@@ -56,13 +68,6 @@
     width: 85%;
     font-family: "Lora", serif;
     padding: 0.3em;
-}
-.userMessage{
-
-}
-
-.otherMessage{
-
 }
 
 .gameControls{

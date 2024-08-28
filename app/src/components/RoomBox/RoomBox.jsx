@@ -1,11 +1,14 @@
+import { useRoomContext } from "../../context/RoomContext";
 import styles from "./RoomBox.module.css";
 
 const RoomBox = ({ room }) => {
   const { _id, name, participants, status, createdAt } = room;
+  const {useJoinRoom} = useRoomContext();
+  const  {joinRoom} = useJoinRoom();
 
   const handleSubmit = async () =>{
-    e.preventDefault();
     //join room
+    await joinRoom(_id);
   }
   return (
     <div className={styles.roombox}>

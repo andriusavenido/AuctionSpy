@@ -1,6 +1,7 @@
 /* GAME LOGIC */
 //io is server, socket is client 
 const Room= require('../models/roomModel');
+const Message = require('../models/messageModel')
 const itemList = require('../assets/ItemList.json');
 
 function getRandomItem() {
@@ -43,6 +44,20 @@ module.exports = (socket, io) => {
         }
     });
 
+    socket.on('roomMessage', async (message)=>{
+        try{
+            const savedMessage = await Message.create(message);
+
+            if (savedMessage){
+                io.to(message.room_id).emit('roomMessage',savedMessage);
+            }
+
+        } catch(err){
+            console.log('message send error:',err);
+            socket.emit('error', 'An error occured sending message');
+        }
+    });
+
     socket.on('disconnect', async ()=>{
         console.log('Client disconnected:', socket.id);
 
@@ -57,6 +72,11 @@ module.exports = (socket, io) => {
                     await room.save();
                     io.to(user.room_id).emit('roomUpdate', room);
 
+                    if (room.participants.length ===0){
+                        await Room.findOneAndDelete(user.room_id);
+                        await Message.deleteMany({room_id: room_id});
+                    }
+
                     removeUser(socket.id);
                 }
             } catch(err){
@@ -65,6 +85,7 @@ module.exports = (socket, io) => {
         }
     })
 };
+
 
 
 //userInRooms functions

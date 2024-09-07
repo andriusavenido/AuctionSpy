@@ -18,6 +18,12 @@ const usersInRooms ={
     }
 }
 
+const gameStates ={
+    games:[],
+    setGames: function (newArray){
+        this.users = newArray;
+    }
+}
 
 module.exports = (socket, io) => {
 
@@ -72,7 +78,7 @@ module.exports = (socket, io) => {
                     await room.save();
                     io.to(user.room_id).emit('roomUpdate', room);
 
-                    if (room.participants.length ===0){
+                    if (room.participants.length ===0){ //delete room and messages
                         await Room.findOneAndDelete(user.room_id);
                         await Message.deleteMany({room_id: room_id});
                     }
@@ -83,10 +89,56 @@ module.exports = (socket, io) => {
                 console.log('error removing user from room: ', err);
             }
         }
-    })
+    });
+
+    socket.on('startGameState', (room_id) =>{
+        createGameState(room_id);
+        socket.emit('receiveGameState', getGameState(room_id));
+        //send gamestate to client
+    });
+
+    function createGameState(room_id){
+        const item = getRandomItem();
+        const users =  getUsersInRoom(room_id);
+        const spy = users[Math.floor(Math.random()*users.length)];
+    
+        const gameState = {
+            room_id,
+            remainingTime: 360,
+            spy: spy,
+            item: item,
+            timer: function(){
+                const timer = setInterval(() =>{
+                    if(gameState.remainingTime >0){
+                        gameState.remainingTime--;
+                        io.to(room_id).emit('timerUpdate', gameState.remainingTime);
+                    }else{
+                        clearInterval(timer);
+                        io.to(room_id).emit('timerEnd');
+                    }
+                },1000)
+            }
+        };
+
+        //add this to gamestates
+        gameStates.setGames(
+            ...gameStates.games.filter(game => game.room_id !== room_id),
+            gameState
+        );
+    
+    }
 };
 
 
+function endGameState(room_id){
+    gameStates.setGames(
+        gameStates.gamesfilter( game => game.room_id !== room_id)
+    );
+}
+
+function getGameState(room_id){
+    gameStates.games.find(game => game.room_id === room_id);
+}
 
 //userInRooms functions
 function enterUser(room_id, name, session_id){
@@ -103,6 +155,10 @@ function removeUser(session_id){
     usersInRooms.setUsers(
         usersInRooms.users.filter( user => user.session_id !== session_id)
     );
+}
+
+function getUsersInRoom(room_id){
+    return usersInRooms.users.filter( user => user.room_id === room_id);
 }
 
 function getUser(session_id){

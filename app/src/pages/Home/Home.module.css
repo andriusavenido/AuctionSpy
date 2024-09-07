@@ -48,7 +48,6 @@ button:hover{
     width: 80vh;
     overflow: auto;
     height: 50vh;
-    border: solid 1px black;
 }
 
 .highlighted{

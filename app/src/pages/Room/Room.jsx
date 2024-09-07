@@ -77,7 +77,6 @@ const Room = () => {
         <div className={styles.chatInput}>
           <input type="text" value = {inputValue} onChange={handleInputChange} placeholder="Send a message..."/>
           <button  onClick={handleSendMessage}>Send</button>
-            
         </div>
       </div>
     </div>

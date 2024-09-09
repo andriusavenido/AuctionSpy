@@ -25,6 +25,9 @@ export const SocketProvider = ({children}) =>{
         };
 
     },[]);
+
+    const resetSocket = () =>{
+    }
     return (
         <SocketContext.Provider value = {{socket, session_id }}>
             {children}

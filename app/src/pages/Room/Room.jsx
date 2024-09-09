@@ -6,7 +6,8 @@ import useMessageHandler from "../../hooks/useMessageHandler";
 
 const Room = () => {
   const { socket, session_id } = useSocketContext();
-  const { name, activeRoom, setActiveRoom } = useRoomContext();
+  const { name, activeRoom, setActiveRoom, useUpdateRoom } = useRoomContext();
+  const {updateRoom} = useUpdateRoom();
   const { messages, sendMessage } = useMessageHandler(socket, activeRoom._id, name);
   const [inputValue, setInputValue] = useState('');
  
@@ -49,6 +50,11 @@ const Room = () => {
     }
   };
 
+  const handleChangeRoomStatus =() =>{
+    const status = (activeRoom.status === 'open' ? 'closed':'open');
+    // updateRoom(room._id,status, room.privacy);
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>
@@ -62,7 +68,9 @@ const Room = () => {
           </ul>
         </div>
         {session_id === room.adminId && (
-          <div className={styles.controls}>this is admin page</div>
+          <div className={styles.controls}>
+            <button onClick={handleChangeRoomStatus}>Toggle Room Status</button>
+          </div>
         )}
         <div className={styles.gameControls}></div>
       </div>

@@ -9,6 +9,11 @@ const roomReducer =(state, action) =>{
             return {...state, rooms: action.payload}
         case 'ADD_ROOM':
             return {...state, rooms: [...state.rooms, action.payload]}
+        case 'REPLACE_ROOM':
+            const updatedRooms = state.rooms.map(room =>
+                room._id === action.payload._id ? action.payload : room
+            );
+            return {...state, rooms: updatedRooms}
 
         default:
             return state
@@ -45,8 +50,8 @@ export const RoomContextProvider = ({children}) =>{
         if (newRoom.privacy !== 'private'){
              dispatch({type: 'ADD_ROOM', payload: newRoom});
         }
-       
     }
+
 
     const useCreateRoom = () =>{
         const [loading, setLoading] = useState(false);
@@ -128,10 +133,34 @@ export const RoomContextProvider = ({children}) =>{
     }
 
     const useUpdateRoom = () =>{
-        
-        const updateRoom = async (id) =>{
+        const updateRoom = async (id, status, privacy) =>{
+            try {
 
+                const data = {status, privacy};
+                const response = await fetch('api/room/'+id,{
+                    method:'PATCH',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+
+                if (!response.ok){
+                    throw new Error(response.status);
+                }
+
+                const updatedRoom = await response.json();
+
+                dispatch({type: 'REPLACE_ROOM', payload: updatedRoom});
+                setActiveRoom(updateRoom);
+
+
+                
+            } catch (err){
+                console.log('Client sent update ',err);
+            }
         }
+        return {updateRoom};
     }
 
     return (

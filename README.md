@@ -1,6 +1,9 @@
 # AuctionSpy
 A Spyfall inspired multiplayer chatroom web application
 
+![image](https://github.com/user-attachments/assets/01bc9524-4e8e-4fdc-b954-e26134181671)
+
+
 ## Premise
 Auction Spy is an engaging online chat-based game that combines the thrill of deduction with the excitement of auctions. Inspired by the popular tabletop game SpyFall, Auction Spy challenges players to identify the infiltrator among them.
 
